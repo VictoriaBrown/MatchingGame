@@ -401,31 +401,36 @@ public class CardView extends SurfaceView implements SurfaceHolder.Callback {
                 waitTime++;
             }
 
-            // Loop number variable to keep track:
-            int loopNum = 0;
+            for (int number = 0; number < gameState.length; number++) {
 
-            for (int number : gameState) {
-
-                if (number != 0) {
-                    // If num1 is empty:
+                if (gameState[number] != 0) {
+                    // If num1 is empty then place first num in variable:
                     if (num1 == 0) {
-
-                        num1 = number;
-                        cardNum1 = loopNum;
-                    } else {
-                        if (num1 != number) {
-                            gameState[cardNum1] = 0;
-                            gameState[number] = 0;
-                            nCards = 0;
-                        } else {
-                            gameState[cardNum1] = 10;
-                            gameState[number] = 10;
-
-                        }
+                        num1 = gameState[number];
+                        cardNum1 = number;
+                    }
+                    if (num1 != 0) {
+                        num2 = gameState[number];
+                        cardNum2 = number;
                     }
                 }
-                loopNum += 1;
             }
+
+            if (num1 != num2 && num1 != 0 && num2 != 0) {
+                gameState[cardNum1] = 0;
+                gameState[cardNum2] = 0;
+                nCards = 0;
+                num1 = 0;
+                num2 = 0;
+            }
+            if (num1 == num2 && num1 != 0 && num2 != 0){
+                gameState[cardNum1] = 10;
+                gameState[cardNum2] = 10;
+                nCards = 0;
+                num1 = 0;
+                num2 = 0;
+            }
+            nCards = 0;
         }
     }
 
